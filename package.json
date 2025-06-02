@@ -1,0 +1,15 @@
+{
+  "name": "newjeans",
+  "scripts": {
+    "client": "cd client && bun run dev",
+    "server": "bun run --hot server/index.ts",
+    "dev": "concurrently \"bun run client\" \"bun run server\""
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "hono": "^4.7.11"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
