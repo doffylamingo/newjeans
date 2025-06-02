@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="w-full max-h-screen">
+    <main className="w-full max-h-screen max-w-[68rem] mx-auto">
       <img
         src="/newjeans-cover.webp"
         alt="banner-image"
