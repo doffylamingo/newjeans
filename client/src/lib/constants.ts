@@ -32,7 +32,28 @@ export const albums = [
     name: "NewJeans",
     image: "/album.webp",
     releaseDate: "2022.08.01",
-    videos: ["js1CtxSY38I", "SHYWqy_X-tU", "VOmIplFAGeg", "tVIXY14aJms"],
+    videos: [
+      {
+        name: "Attention",
+        id: "js1CtxSY38I",
+        date: "2022.07.21",
+      },
+      {
+        name: "Hype Boy (MINJI ver.)",
+        id: "Rrf8uQFvICE",
+        date: "2022.07.23",
+      },
+      {
+        name: "Cookie",
+        id: "VOmIplFAGeg",
+        date: "2022.08.01",
+      },
+      {
+        name: "Hurt",
+        id: "tVIXY14aJms",
+        date: "2022.07.24",
+      },
+    ],
     photos: [
       {
         src: "https://kpopping.com/documents/b6/3/800/NewJeans-1st-Mini-Album-New-Jeans-Concept-Teasers-documents-1.jpeg?v=d31db",
@@ -146,7 +167,13 @@ export const albums = [
     name: "Supernatural",
     image: "/album.webp",
     releaseDate: "2024.06.21",
-    videos: ["ZncbtRo7RXs"],
+    videos: [
+      {
+        name: "Supernatural",
+        id: "ZncbtRo7RXs",
+        date: "2024.06.21",
+      },
+    ],
     tracks: [
       {
         name: "Supernatural",
@@ -258,5 +285,33 @@ export const gallery = [
     src: "https://kpopping.com/documents/6b/4/800/NewJeans-Ditto-Concept-Teasers-documents-6.jpeg?v=6c995",
     width: 800,
     height: 534,
+  },
+];
+
+export const videos = [
+  {
+    name: "Attention",
+    id: "js1CtxSY38I",
+    date: "2022.07.21",
+  },
+  {
+    name: "Hype Boy (MINJI ver.)",
+    id: "Rrf8uQFvICE",
+    date: "2022.07.23",
+  },
+  {
+    name: "Cookie",
+    id: "VOmIplFAGeg",
+    date: "2022.08.01",
+  },
+  {
+    name: "Hurt",
+    id: "tVIXY14aJms",
+    date: "2022.07.24",
+  },
+  {
+    name: "Supernatural",
+    id: "ZncbtRo7RXs",
+    date: "2024.06.21",
   },
 ];

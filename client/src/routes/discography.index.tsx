@@ -33,7 +33,7 @@ function DiscographyPage() {
               />
             </div>
             <div className="flex flex-col sm:flex-row sm:justify-between items-center pt-3 pb-4 group-hover:cursor-pointer gap-1 sm:gap-0">
-              <div className="text-base sm:text-lg font-bold group-hover:scale-103 transition-all duration-100 break-words">
+              <div className="text-base sm:text-lg font-bold group-hover:scale-103 transition-all duration-100">
                 {album.name}
               </div>
               <div className="text-sm sm:text-base font-medium text-neutral-700 sm:text-right flex-shrink-0">

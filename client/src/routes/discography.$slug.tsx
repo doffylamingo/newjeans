@@ -1,11 +1,11 @@
 import { albums } from "@/lib/constants";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import ReactPlayer from "react-player/youtube";
 
 import Gallery from "@/components/Gallery";
 import Pagination from "@/components/Pagination";
 import usePagination from "@/hooks/usePagination";
+import Video from "@/components/Video";
 
 export const Route = createFileRoute("/discography/$slug")({
   component: RouteComponent,
@@ -16,7 +16,6 @@ function RouteComponent() {
   const [index, setIndex] = useState(-1);
 
   const album = albums.find((album) => album.slug === slug);
-  const [selected, setSelected] = useState<string>(album?.videos?.[0] || "");
 
   const {
     page: photoPage,
@@ -97,49 +96,7 @@ function RouteComponent() {
       </DiscographySection>
 
       <DiscographySection title="Video">
-        <div className="relative shadow-2xl mb-6 md:mb-8">
-          <div className="aspect-video">
-            <ReactPlayer
-              controls
-              url={`https://www.youtube.com/watch?v=${selected}`}
-              width="100%"
-              height="100%"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-          {album.videos?.map((videoId, index) => (
-            <div
-              key={videoId}
-              onClick={() => setSelected(videoId)}
-              className={`relative group cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-                selected === videoId
-                  ? "ring-4 ring-blue-500 ring-opacity-75 shadow-lg"
-                  : "hover:ring-2 hover:ring-gray-300"
-              }`}
-            >
-              <div className="aspect-video relative">
-                <img
-                  src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                  alt={`Video ${index + 1}`}
-                  className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-75"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                  <div className="w-8 h-8 md:w-10 md:h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <svg
-                      className="w-4 h-4 md:w-7 md:h-7 text-gray-800 mr-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M8 5v10l8-5-8-5z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Video videos={album.videos ?? []} />
       </DiscographySection>
     </main>
   );
