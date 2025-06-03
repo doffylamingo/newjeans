@@ -1,6 +1,7 @@
-import Video from "@/components/Video";
 import { createFileRoute } from "@tanstack/react-router";
+
 import { videos } from "@/lib/constants";
+import Video from "@/components/Video";
 
 export const Route = createFileRoute("/video")({
   component: RouteComponent,
@@ -8,7 +9,7 @@ export const Route = createFileRoute("/video")({
 
 function RouteComponent() {
   return (
-    <main className="w-full min-h-screen max-w-[68rem] mx-auto px-4 md:px-0 py-6 md:py-8">
+    <main className="mx-auto min-h-screen w-full max-w-[68rem] px-4 py-6 md:px-0 md:py-8">
       <Video videos={videos} />
     </main>
   );

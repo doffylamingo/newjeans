@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Socials from "./Socials";
-import { cn } from "@/lib/utils";
 import { Link, useLocation } from "@tanstack/react-router";
+
+import { cn } from "@/lib/utils";
+
+import Socials from "./Socials";
 
 const NAV_ITEMS = [
   { href: "/", name: "Home" },
@@ -25,28 +27,31 @@ function BurgerMenu({
   const lineColor = pathname === "/" && !isOpen ? "bg-white" : "bg-black";
 
   return (
-    <div onClick={openCloseMenu} className="z-40 relative cursor-pointer">
+    <div
+      className="relative z-40 cursor-pointer"
+      onClick={openCloseMenu}
+    >
       <div
         className={cn(
-          "w-8 sm:w-10 md:w-12 h-[2px] my-1 transition-all duration-300",
+          "my-1 h-[2px] w-8 transition-all duration-300 sm:w-10 md:w-12",
           ` ${isOpen ? "absolute top-0 rotate-45" : ""}`,
-          `${lineColor}`
+          `${lineColor}`,
         )}
-      ></div>
+      />
       <div
         className={cn(
-          "w-8 sm:w-10 md:w-12 h-[2px] my-1 transition-all duration-300",
+          "my-1 h-[2px] w-8 transition-all duration-300 sm:w-10 md:w-12",
           ` ${isOpen ? "absolute top-0 -rotate-45" : ""}`,
-          `${lineColor}`
+          `${lineColor}`,
         )}
-      ></div>
+      />
       <div
         className={cn(
-          "w-8 sm:w-10 md:w-12 h-[2px] my-1 transition-all",
+          "my-1 h-[2px] w-8 transition-all sm:w-10 md:w-12",
           ` ${isOpen ? "opacity-0" : ""}`,
-          `${lineColor}`
+          `${lineColor}`,
         )}
-      ></div>
+      />
     </div>
   );
 }
@@ -61,12 +66,15 @@ function NavItems({
   openCloseMenu: () => void;
 }) {
   return (
-    <div onClick={openCloseMenu} className="py-2 w-full">
+    <div
+      className="w-full py-2"
+      onClick={openCloseMenu}
+    >
       <Link
-        className="group uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-black transition-all duration-500 ease-in-out"
+        className="group text-2xl font-semibold text-black uppercase transition-all duration-500 ease-in-out sm:text-3xl md:text-4xl lg:text-5xl"
         to={href}
       >
-        <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_3px] bg-no-repeat group-hover:bg-[length:100%_3px] transition-all duration-700 ease-out">
+        <span className="bg-gradient-to-r from-black to-black bg-[length:0%_3px] bg-left-bottom bg-no-repeat transition-all duration-700 ease-out group-hover:bg-[length:100%_3px]">
           {name}
         </span>
       </Link>
@@ -94,14 +102,17 @@ export default function NavBar() {
   }, [isOpen]);
 
   return (
-    <div className="max-w-[68rem] mx-auto px-4 md:px-0">
-      <header className="sticky z-40 top-0 flex justify-between items-center py-3 sm:py-4 md:py-14">
+    <div className="mx-auto max-w-[68rem] px-4 md:px-0">
+      <header className="sticky top-0 z-40 flex items-center justify-between py-3 sm:py-4 md:py-14">
         <div className="relative flex-shrink-0">
-          <Link to="/" onClick={() => setIsOpen(false)}>
+          <Link
+            to="/"
+            onClick={() => setIsOpen(false)}
+          >
             <img
-              src="/logo.png"
               alt="newjeans logo"
-              className="w-28 h-auto sm:w-32 md:w-40 lg:w-52 max-w-full"
+              className="h-auto w-28 max-w-full sm:w-32 md:w-40 lg:w-52"
+              src="/logo.png"
             />
           </Link>
         </div>
@@ -114,9 +125,9 @@ export default function NavBar() {
         </div>
       </header>
       {isOpen && (
-        <div className="fixed z-30 top-0 left-0 h-screen w-full bg-white overflow-hidden">
-          <div className="flex flex-col items-center justify-center h-full px-4">
-            <div className="flex flex-col text-center max-w-full">
+        <div className="fixed top-0 left-0 z-30 h-screen w-full overflow-hidden bg-white">
+          <div className="flex h-full flex-col items-center justify-center px-4">
+            <div className="flex max-w-full flex-col text-center">
               {NAV_ITEMS.map((item, i) => (
                 <NavItems
                   key={i}
@@ -126,7 +137,7 @@ export default function NavBar() {
                 />
               ))}
             </div>
-            <div className="flex flex-row items-center justify-center absolute bottom-10 w-full px-4">
+            <div className="absolute bottom-10 flex w-full flex-row items-center justify-center px-4">
               <Socials />
             </div>
           </div>

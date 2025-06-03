@@ -38,12 +38,17 @@ export default function Socials() {
     <>
       {SNS_ITEMS.map((item, i) => (
         <Link
-          to={item.href}
-          target="_blank"
           key={i}
-          className="px-4 hover:scale-125 transition-all duration-200 ease-in-out"
+          className="px-4 transition-all duration-200 ease-in-out hover:scale-125"
+          target="_blank"
+          to={item.href}
         >
-          <img src={item.logo} alt={item.name} width={20} height={20} />
+          <img
+            alt={item.name}
+            height={20}
+            src={item.logo}
+            width={20}
+          />
         </Link>
       ))}
     </>

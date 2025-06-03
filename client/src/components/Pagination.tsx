@@ -1,4 +1,4 @@
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type PaginationProps = {
   currentPage: number;
@@ -24,11 +24,11 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex justify-center items-center mt-6 space-x-2">
+    <div className="mt-6 flex items-center justify-center space-x-2">
       <button
         className="px-4 py-2 disabled:opacity-50"
-        onClick={handlePrev}
         disabled={currentPage === 1}
+        onClick={handlePrev}
       >
         <ChevronLeft className="size-7" />
       </button>
@@ -40,8 +40,8 @@ export default function Pagination({
 
       <button
         className="px-4 py-2 disabled:opacity-50"
-        onClick={handleNext}
         disabled={currentPage === totalPages}
+        onClick={handleNext}
       >
         <ChevronRight className="size-7" />
       </button>

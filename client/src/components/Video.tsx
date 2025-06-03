@@ -1,8 +1,10 @@
-import usePagination from "@/hooks/usePagination";
 import { useCallback, useState } from "react";
-import ReactPlayer from "react-player";
-import Pagination from "./Pagination";
 import { CirclePlay } from "lucide-react";
+import ReactPlayer from "react-player";
+
+import usePagination from "@/hooks/usePagination";
+
+import Pagination from "./Pagination";
 
 interface Video {
   name: string;
@@ -23,25 +25,25 @@ export default function Video({ videos = [] }: { videos: Video[] }) {
 
   return (
     <div>
-      <div className="relative shadow-2xl mb-6 md:mb-8">
+      <div className="relative mb-6 shadow-2xl md:mb-8">
         <div className="aspect-video">
           <ReactPlayer
             controls
+            height="100%"
             url={`https://www.youtube.com/watch?v=${selected?.id}`}
             width="100%"
-            height="100%"
           />
         </div>
       </div>
       <VideoList
-        videos={paginatedVideos}
         selected={selected}
         setSelected={handleSelect}
+        videos={paginatedVideos}
       />
       <Pagination
         currentPage={videoPage}
-        onPageChange={setVideoPage}
         totalPages={totalPages}
+        onPageChange={setVideoPage}
       />
     </div>
   );
@@ -57,12 +59,12 @@ function VideoList({
   setSelected: (video: Video) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
       {videos.map((video) => (
         <VideoThumbnail
           key={video.id}
-          video={video}
           selected={selected}
+          video={video}
           onSelect={setSelected}
         />
       ))}
@@ -82,29 +84,29 @@ function VideoThumbnail({
   const { id: videoId, name, date } = video;
 
   return (
-    <div className="flex flex-col group">
+    <div className="group flex flex-col">
       <div
-        onClick={() => onSelect(video)}
-        className={`relative  cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg ${
+        className={`relative cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg ${
           selected?.id === videoId
-            ? "ring-4 ring-blue-500 ring-opacity-75 shadow-lg"
+            ? "ring-opacity-75 shadow-lg ring-4 ring-blue-500"
             : "hover:ring-2 hover:ring-gray-300"
         }`}
+        onClick={() => onSelect(video)}
       >
-        <div className="aspect-video relative">
+        <div className="relative aspect-video">
           <img
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt={`Thumbnail for ${name}`}
-            className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-75"
+            className="h-full w-full object-cover transition-all duration-300 group-hover:brightness-75"
+            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
-            <CirclePlay className="size-8 md:size-13 opacity-0 group-hover:opacity-100 transition-all duration-300 text-gray-300" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/50">
+            <CirclePlay className="size-8 text-gray-300 opacity-0 transition-all duration-300 group-hover:opacity-100 md:size-13" />
           </div>
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row sm:justify-between items-center pt-3 pb-4 group-hover:cursor-pointer gap-1 sm:gap-0">
-        <div className="text-base sm:text-lg font-bold ">{name}</div>
-        <div className="text-sm sm:text-base font-medium text-neutral-700 sm:text-right flex-shrink-0">
+      <div className="flex flex-col items-center gap-1 pt-3 pb-4 group-hover:cursor-pointer sm:flex-row sm:justify-between sm:gap-0">
+        <div className="text-base font-bold sm:text-lg">{name}</div>
+        <div className="flex-shrink-0 text-sm font-medium text-neutral-700 sm:text-right sm:text-base">
           {date}
         </div>
       </div>

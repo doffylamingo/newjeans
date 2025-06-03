@@ -1,5 +1,6 @@
-import { members } from "@/lib/constants";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { members } from "@/lib/constants";
 
 export const Route = createFileRoute("/profile")({
   component: ProfilePage,
@@ -11,7 +12,7 @@ function ProfilePage() {
       {members.map((member, index) => (
         <div
           key={index}
-          className={`flex flex-col md:flex md:items-end gap-3 md:gap-5 mb-8 md:mb-0 ${
+          className={`mb-8 flex flex-col gap-3 md:mb-0 md:flex md:items-end md:gap-5 ${
             index % 2 === 1
               ? "md:flex-row-reverse md:bg-neutral-200"
               : "md:flex-row"
@@ -19,16 +20,16 @@ function ProfilePage() {
         >
           <div className="w-full md:w-auto">
             <img
-              src={member.image}
-              className="w-full md:drop-shadow-xl/25"
               alt={member.name}
+              className="w-full md:drop-shadow-xl/25"
+              src={member.image}
             />
           </div>
-          <div className="flex flex-col px-2 md:pl-1 text-center md:text-left md:flex-1">
-            <div className="uppercase tracking-tighter md:-ml-1 text-2xl md:text-4xl lg:text-6xl font-bold">
+          <div className="flex flex-col px-2 text-center md:flex-1 md:pl-1 md:text-left">
+            <div className="text-2xl font-bold tracking-tighter uppercase md:-ml-1 md:text-4xl lg:text-6xl">
               {member.name}
             </div>
-            <div className="text-sm md:text-base lg:text-xl font-base text-gray-700 md:pt-2 md:pb-15 pb-1">
+            <div className="font-base pb-1 text-sm text-gray-700 md:pt-2 md:pb-15 md:text-base lg:text-xl">
               {member.birthday}
             </div>
           </div>

@@ -1,10 +1,10 @@
-import { albums } from "@/lib/constants";
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 
+import { albums } from "@/lib/constants";
+import usePagination from "@/hooks/usePagination";
 import Gallery from "@/components/Gallery";
 import Pagination from "@/components/Pagination";
-import usePagination from "@/hooks/usePagination";
 import Video from "@/components/Video";
 
 export const Route = createFileRoute("/discography/$slug")({
@@ -26,13 +26,13 @@ function RouteComponent() {
 
   if (!album) {
     return (
-      <main className="w-full min-h-screen max-w-[68rem] mx-auto px-4 md:px-0 flex items-center justify-center">
+      <main className="mx-auto flex min-h-screen w-full max-w-[68rem] items-center justify-center px-4 md:px-0">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">
+          <h1 className="mb-2 text-2xl font-bold text-gray-800">
             Album not found
           </h1>
           <p className="text-gray-600">
-            The album you're looking for doesn't exist.
+            The album you&#39;re looking for doesn&#39;t exist.
           </p>
         </div>
       </main>
@@ -40,38 +40,38 @@ function RouteComponent() {
   }
 
   return (
-    <main className="w-full min-h-screen max-w-[68rem] mx-auto px-4 md:px-0 py-6 md:py-8">
-      <div className="mb-8 md:mb-50 w-full flex flex-col items-center justify-center">
+    <main className="mx-auto min-h-screen w-full max-w-[68rem] px-4 py-6 md:px-0 md:py-8">
+      <div className="mb-8 flex w-full flex-col items-center justify-center md:mb-50">
         <div className="text-center">
-          <div className="uppercase text-3xl md:text-4xl lg:text-7xl font-bold">
+          <div className="text-3xl font-bold uppercase md:text-4xl lg:text-7xl">
             {album.name}
           </div>
-          <p className="text-lg md:text-xl text-gray-600 mb-4 md:mb-13">
+          <p className="mb-4 text-lg text-gray-600 md:mb-13 md:text-xl">
             {album.releaseDate}
           </p>
         </div>
         <div className="md:w-64 lg:w-110">
           <img
-            src={album.image}
             alt={album.name}
-            className="w-full aspect-square shadow-xl/25"
+            className="aspect-square w-full shadow-xl/25"
+            src={album.image}
           />
         </div>
       </div>
 
       <DiscographySection title="Track">
-        <div className="flex flex-col gap-y-3 py-3 md:py-4 items-center">
+        <div className="flex flex-col items-center gap-y-3 py-3 md:py-4">
           {album.tracks?.map((track, index) => (
             <div
               key={index}
-              className="flex gap-x-8 py-2 w-[300px] md:w-[400px]"
+              className="flex w-[300px] gap-x-8 py-2 md:w-[400px]"
             >
-              <div className="text-xl text-right w-6 font-bold">
+              <div className="w-6 text-right text-xl font-bold">
                 {String(index + 1).padStart(2, "0")}
               </div>
-              <div className="flex justify-between flex-1">
+              <div className="flex flex-1 justify-between">
                 <div className="text-xl font-bold">{track.name}</div>
-                <div className="text-xl text-neutral-500 font-bold">
+                <div className="text-xl font-bold text-neutral-500">
                   {track.duration}
                 </div>
               </div>
@@ -83,15 +83,19 @@ function RouteComponent() {
       <DiscographySection title="Gallery">
         {photos && photos.length > 0 ? (
           <>
-            <Gallery photos={photos} index={index} setIndex={setIndex} />
+            <Gallery
+              index={index}
+              photos={photos}
+              setIndex={setIndex}
+            />
             <Pagination
               currentPage={photoPage}
-              onPageChange={setPhotoPage}
               totalPages={totalPages}
+              onPageChange={setPhotoPage}
             />
           </>
         ) : (
-          <p className="text-gray-600 mt-4">No photos available.</p>
+          <p className="mt-4 text-gray-600">No photos available.</p>
         )}
       </DiscographySection>
 
@@ -110,8 +114,8 @@ function DiscographySection({
   title: string;
 }) {
   return (
-    <div className="mb-8 md:mb-50 text-center">
-      <div className="uppercase text-3xl md:text-4xl lg:text-7xl font-bold mb-13">
+    <div className="mb-8 text-center md:mb-50">
+      <div className="mb-13 text-3xl font-bold uppercase md:text-4xl lg:text-7xl">
         {title}
       </div>
       {children}

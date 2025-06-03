@@ -1,5 +1,6 @@
-import Socials from "@/components/Socials";
 import { createFileRoute } from "@tanstack/react-router";
+
+import Socials from "@/components/Socials";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -7,13 +8,13 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="w-full max-h-screen max-w-[68rem] mx-auto">
+    <main className="mx-auto max-h-screen w-full max-w-[68rem]">
       <img
-        src="/newjeans-cover.webp"
         alt="banner-image"
-        className="object-cover w-full fixed object-top h-full inset-0 -z-10 filter brightness-[0.65]"
+        className="fixed inset-0 -z-10 h-full w-full object-cover object-top brightness-[0.65] filter"
+        src="/newjeans-cover.webp"
       />
-      <div className="flex absolute bottom-15 invert">
+      <div className="absolute bottom-15 flex invert">
         <Socials />
       </div>
     </main>
