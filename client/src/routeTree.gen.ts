@@ -14,8 +14,9 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as VideoImport } from './routes/video'
 import { Route as ProfileImport } from './routes/profile'
 import { Route as GalleryImport } from './routes/gallery'
-import { Route as DiscographyImport } from './routes/discography'
 import { Route as IndexImport } from './routes/index'
+import { Route as DiscographyIndexImport } from './routes/discography.index'
+import { Route as DiscographySlugImport } from './routes/discography.$slug'
 
 // Create/Update Routes
 
@@ -37,15 +38,21 @@ const GalleryRoute = GalleryImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DiscographyRoute = DiscographyImport.update({
-  id: '/discography',
-  path: '/discography',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DiscographyIndexRoute = DiscographyIndexImport.update({
+  id: '/discography/',
+  path: '/discography/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DiscographySlugRoute = DiscographySlugImport.update({
+  id: '/discography/$slug',
+  path: '/discography/$slug',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -58,13 +65,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/discography': {
-      id: '/discography'
-      path: '/discography'
-      fullPath: '/discography'
-      preLoaderRoute: typeof DiscographyImport
       parentRoute: typeof rootRoute
     }
     '/gallery': {
@@ -88,6 +88,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VideoImport
       parentRoute: typeof rootRoute
     }
+    '/discography/$slug': {
+      id: '/discography/$slug'
+      path: '/discography/$slug'
+      fullPath: '/discography/$slug'
+      preLoaderRoute: typeof DiscographySlugImport
+      parentRoute: typeof rootRoute
+    }
+    '/discography/': {
+      id: '/discography/'
+      path: '/discography'
+      fullPath: '/discography'
+      preLoaderRoute: typeof DiscographyIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -95,52 +109,76 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/discography': typeof DiscographyRoute
   '/gallery': typeof GalleryRoute
   '/profile': typeof ProfileRoute
   '/video': typeof VideoRoute
+  '/discography/$slug': typeof DiscographySlugRoute
+  '/discography': typeof DiscographyIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/discography': typeof DiscographyRoute
   '/gallery': typeof GalleryRoute
   '/profile': typeof ProfileRoute
   '/video': typeof VideoRoute
+  '/discography/$slug': typeof DiscographySlugRoute
+  '/discography': typeof DiscographyIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/discography': typeof DiscographyRoute
   '/gallery': typeof GalleryRoute
   '/profile': typeof ProfileRoute
   '/video': typeof VideoRoute
+  '/discography/$slug': typeof DiscographySlugRoute
+  '/discography/': typeof DiscographyIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/discography' | '/gallery' | '/profile' | '/video'
+  fullPaths:
+    | '/'
+    | '/gallery'
+    | '/profile'
+    | '/video'
+    | '/discography/$slug'
+    | '/discography'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/discography' | '/gallery' | '/profile' | '/video'
-  id: '__root__' | '/' | '/discography' | '/gallery' | '/profile' | '/video'
+  to:
+    | '/'
+    | '/gallery'
+    | '/profile'
+    | '/video'
+    | '/discography/$slug'
+    | '/discography'
+  id:
+    | '__root__'
+    | '/'
+    | '/gallery'
+    | '/profile'
+    | '/video'
+    | '/discography/$slug'
+    | '/discography/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DiscographyRoute: typeof DiscographyRoute
   GalleryRoute: typeof GalleryRoute
   ProfileRoute: typeof ProfileRoute
   VideoRoute: typeof VideoRoute
+  DiscographySlugRoute: typeof DiscographySlugRoute
+  DiscographyIndexRoute: typeof DiscographyIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DiscographyRoute: DiscographyRoute,
   GalleryRoute: GalleryRoute,
   ProfileRoute: ProfileRoute,
   VideoRoute: VideoRoute,
+  DiscographySlugRoute: DiscographySlugRoute,
+  DiscographyIndexRoute: DiscographyIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -154,17 +192,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/discography",
         "/gallery",
         "/profile",
-        "/video"
+        "/video",
+        "/discography/$slug",
+        "/discography/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/discography": {
-      "filePath": "discography.tsx"
     },
     "/gallery": {
       "filePath": "gallery.tsx"
@@ -174,6 +210,12 @@ export const routeTree = rootRoute
     },
     "/video": {
       "filePath": "video.tsx"
+    },
+    "/discography/$slug": {
+      "filePath": "discography.$slug.tsx"
+    },
+    "/discography/": {
+      "filePath": "discography.index.tsx"
     }
   }
 }
