@@ -2,14 +2,25 @@
   "name": "newjeans",
   "scripts": {
     "client": "cd client && bun run dev",
-    "server": "bun run --hot server/index.ts",
-    "dev": "concurrently \"bun run client\" \"bun run server\""
+    "server": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "dev": "concurrently \"bun run client\" \"bun run server\"",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx migrate.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
     "concurrently": "^9.1.2",
-    "hono": "^4.7.11"
+    "drizzle-orm": "^0.44.1",
+    "hono": "^4.7.11",
+    "wrangler": "^4.18.0"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "dotenv": "^16.5.0",
+    "drizzle-kit": "^0.31.1",
+    "postgres": "^3.4.7",
+    "tsx": "^4.19.4"
   }
 }

@@ -1,9 +1,15 @@
 import { Hono } from "hono";
 
-const app = new Hono().basePath("/api");
+export type Env = {
+  DATABASE_URL: string;
+};
+
+const app = new Hono<{ Bindings: Env }>().basePath("/api");
 
 app.get("/", (c) => {
-  return c.text("Hello NewJeans!");
+  return c.json({
+    message: "Hello NewJeans!",
+  });
 });
 
 export default app;
