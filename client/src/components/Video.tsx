@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 
 interface Video {
   name: string;
-  id: string;
+  videoId: string;
   date: string;
 }
 
@@ -30,7 +30,7 @@ export default function Video({ videos = [] }: { videos: Video[] }) {
           <ReactPlayer
             controls
             height="100%"
-            url={`https://www.youtube.com/watch?v=${selected?.id}`}
+            url={`https://www.youtube.com/watch?v=${selected?.videoId}`}
             width="100%"
           />
         </div>
@@ -62,7 +62,7 @@ function VideoList({
     <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
       {videos.map((video) => (
         <VideoThumbnail
-          key={video.id}
+          key={video.videoId}
           selected={selected}
           video={video}
           onSelect={setSelected}
@@ -81,13 +81,13 @@ function VideoThumbnail({
   selected: Video | null;
   onSelect: (video: Video) => void;
 }) {
-  const { id: videoId, name, date } = video;
+  const { videoId: id, name, date } = video;
 
   return (
     <div className="group flex flex-col">
       <div
         className={`relative cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg ${
-          selected?.id === videoId
+          selected?.videoId === id
             ? "ring-opacity-75 shadow-lg ring-4 ring-blue-500"
             : "hover:ring-2 hover:ring-gray-300"
         }`}
@@ -97,7 +97,7 @@ function VideoThumbnail({
           <img
             alt={`Thumbnail for ${name}`}
             className="h-full w-full object-cover transition-all duration-300 group-hover:brightness-75"
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            src={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
           />
           <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/50">
             <CirclePlay className="size-8 text-gray-300 opacity-0 transition-all duration-300 group-hover:opacity-100 md:size-13" />

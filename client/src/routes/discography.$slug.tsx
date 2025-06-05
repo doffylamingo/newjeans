@@ -1,28 +1,46 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { albums } from "@/lib/constants";
+import { api } from "@/lib/api";
 import usePagination from "@/hooks/usePagination";
 import Gallery from "@/components/Gallery";
 import Pagination from "@/components/Pagination";
 import Video from "@/components/Video";
 
+const getAlbumQueryOptions = (slug: string) => ({
+  queryKey: ["album", slug],
+  queryFn: async () => {
+    const res = await api.albums[":slug"].$get({
+      param: {
+        slug,
+      },
+    });
+    const data = await res.json();
+
+    return data;
+  },
+});
+
 export const Route = createFileRoute("/discography/$slug")({
+  loader: async ({ context: { queryClient }, params: { slug } }) => {
+    return queryClient.ensureQueryData(getAlbumQueryOptions(slug));
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { slug } = Route.useParams();
+  const data = Route.useLoaderData();
+
   const [index, setIndex] = useState(-1);
 
-  const album = albums.find((album) => album.slug === slug);
+  const album = "result" in data ? data.result : null;
 
   const {
     page: photoPage,
     setPage: setPhotoPage,
     totalPages,
     paginatedItems: photos,
-  } = usePagination(album?.photos ?? [], 10);
+  } = usePagination(album?.images ?? [], 20);
 
   if (!album) {
     return (
@@ -54,7 +72,7 @@ function RouteComponent() {
           <img
             alt={album.name}
             className="aspect-square w-full shadow-xl/25"
-            src={album.image}
+            src={album.cover}
           />
         </div>
       </div>

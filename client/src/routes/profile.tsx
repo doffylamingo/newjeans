@@ -12,7 +12,7 @@ function ProfilePage() {
       {members.map((member, index) => (
         <div
           key={index}
-          className={`mb-8 flex flex-col gap-3 md:mb-0 md:flex md:items-end md:gap-5 ${
+          className={`mb-8 flex flex-col md:mb-0 md:flex md:items-end ${
             index % 2 === 1
               ? "md:flex-row-reverse md:bg-neutral-200"
               : "md:flex-row"
@@ -25,7 +25,7 @@ function ProfilePage() {
               src={member.image}
             />
           </div>
-          <div className="flex flex-col px-2 text-center md:flex-1 md:pl-1 md:text-left">
+          <div className="flex flex-col px-2 text-center md:flex-1 md:pl-6 md:text-left">
             <div className="text-2xl font-bold tracking-tighter uppercase md:-ml-1 md:text-4xl lg:text-6xl">
               {member.name}
             </div>

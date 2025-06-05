@@ -4,9 +4,9 @@ import { pgTable, serial, text, integer, timestamp } from "drizzle-orm/pg-core";
 export const albums = pgTable("albums", {
   id: serial("id").primaryKey(),
   slug: text("slug").notNull().unique(),
-  name: text("name"),
-  releaseDate: text("release_date"),
-  image: text("image"),
+  name: text("name").notNull(),
+  releaseDate: text("release_date").notNull(),
+  image: text("image").notNull(),
 });
 
 export const tracks = pgTable("tracks", {
@@ -15,7 +15,7 @@ export const tracks = pgTable("tracks", {
     .references(() => albums.id)
     .notNull(),
   name: text("name").notNull(),
-  duration: text("duration"),
+  duration: text("duration").notNull(),
 });
 
 export const videos = pgTable("videos", {
@@ -25,7 +25,7 @@ export const videos = pgTable("videos", {
     .notNull(),
   name: text("name").notNull(),
   videoId: text("video_id").notNull(),
-  date: text("date"),
+  date: text("date").notNull(),
 });
 
 export const images = pgTable("images", {

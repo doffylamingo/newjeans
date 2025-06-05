@@ -29,7 +29,7 @@ app.use("*", async (c, next) => {
   await next();
 });
 
-app
+const route = app
   .get("/", (c) => {
     return c.json({
       message: "Hello NewJeans!",
@@ -82,13 +82,15 @@ app
         );
 
       return c.json({
-        slug: result.slug,
-        name: result.name,
-        releaseDate: result.releaseDate,
-        cover: result.image,
-        tracks: result.tracks,
-        images: result.images,
-        videos: result.videos,
+        result: {
+          slug: result.slug,
+          name: result.name,
+          releaseDate: result.releaseDate,
+          cover: result.image,
+          tracks: result.tracks,
+          images: result.images,
+          videos: result.videos,
+        },
       });
     } catch (error) {
       console.log(error);
@@ -143,4 +145,5 @@ app
     }
   });
 
+export type AppType = typeof route;
 export default app;

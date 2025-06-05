@@ -1,23 +1,38 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { albums } from "@/lib/constants";
+import { api } from "@/lib/api";
 import usePagination from "@/hooks/usePagination";
 import Pagination from "@/components/Pagination";
 
+const getDiscographyQueryOptions = () => ({
+  queryKey: ["discography"],
+  queryFn: async () => {
+    const res = await api.albums.$get();
+    const data = await res.json();
+
+    return data;
+  },
+});
+
 export const Route = createFileRoute("/discography/")({
+  loader: async ({ context: { queryClient } }) => {
+    return queryClient.ensureQueryData(getDiscographyQueryOptions());
+  },
   component: DiscographyPage,
 });
 
 function DiscographyPage() {
+  const data = Route.useLoaderData();
+
   const {
     page: albumPage,
     setPage: setAlbumPage,
     totalPages,
     paginatedItems: paginatedAlbums,
-  } = usePagination(albums, 3);
+  } = usePagination(data.result, 6);
 
   return (
-    <main className="mx-auto w-full max-w-[68rem] px-4 md:px-0">
+    <main className="mx-auto w-full max-w-[68rem] px-4 pb-4 md:px-0 md:pb-12">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
         {paginatedAlbums.map((album) => (
           <Link
