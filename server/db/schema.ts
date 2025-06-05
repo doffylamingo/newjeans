@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import { pgTable, serial, text, integer, timestamp } from "drizzle-orm/pg-core";
 
 export const albums = pgTable("albums", {
@@ -35,3 +36,30 @@ export const images = pgTable("images", {
   height: integer("height").notNull(),
   lastRefreshed: timestamp("last_refreshed").defaultNow().notNull(),
 });
+
+export const albumsRelations = relations(albums, ({ many }) => ({
+  tracks: many(tracks),
+  videos: many(videos),
+  images: many(images),
+}));
+
+export const tracksRelations = relations(tracks, ({ one }) => ({
+  album: one(albums, {
+    fields: [tracks.albumId],
+    references: [albums.id],
+  }),
+}));
+
+export const videosRelations = relations(videos, ({ one }) => ({
+  album: one(albums, {
+    fields: [videos.albumId],
+    references: [albums.id],
+  }),
+}));
+
+export const imagesRelations = relations(images, ({ one }) => ({
+  album: one(albums, {
+    fields: [images.albumId],
+    references: [albums.id],
+  }),
+}));
