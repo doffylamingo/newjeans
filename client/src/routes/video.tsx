@@ -18,6 +18,28 @@ export const Route = createFileRoute("/video")({
     return queryClient.ensureQueryData(getVideosQueryOptions());
   },
   component: RouteComponent,
+  pendingComponent: () => (
+    <main className="mx-auto min-h-screen w-full max-w-[68rem] px-4 py-6 md:px-0 md:py-8">
+      <div className="relative mb-6 animate-pulse md:mb-8">
+        <div className="aspect-video w-full bg-gray-300" />
+      </div>
+
+      <div className="grid animate-pulse grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex flex-col"
+          >
+            <div className="relative aspect-video w-full bg-gray-300" />
+            <div className="mt-3 flex flex-col items-center gap-1 sm:flex-row sm:justify-between sm:gap-0">
+              <div className="h-4 w-2/3 bg-gray-300" />
+              <div className="h-4 w-1/3 bg-gray-200" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
+  ),
 });
 
 function RouteComponent() {
