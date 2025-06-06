@@ -137,7 +137,7 @@ export default function NavBar() {
                 />
               ))}
             </div>
-            <div className="absolute bottom-10 flex w-full flex-row items-center justify-center px-4">
+            <div className="absolute bottom-10 hidden w-full flex-row items-center justify-center px-4 md:flex">
               <Socials />
             </div>
           </div>
