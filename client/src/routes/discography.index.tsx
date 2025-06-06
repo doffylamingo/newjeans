@@ -66,7 +66,7 @@ function DiscographyPage() {
                 src={album.image}
               />
             </div>
-            <div className="flex flex-col items-center gap-1 pt-3 pb-4 group-hover:cursor-pointer sm:flex-row sm:justify-between sm:gap-0">
+            <div className="flex flex-row items-center justify-between gap-1 pt-3 pb-4 group-hover:cursor-pointer sm:gap-0">
               <div className="text-base font-bold transition-all duration-100 group-hover:scale-103 sm:text-lg">
                 {album.name}
               </div>
