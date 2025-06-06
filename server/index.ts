@@ -145,7 +145,17 @@ const route = app
         await handleImageRefresh(db, result.images, c.env.DISCORD_AUTH_TOKEN);
       }
 
-      return c.json({ result });
+      return c.json({
+        result: {
+          slug: result.slug,
+          name: result.name,
+          releaseDate: result.releaseDate,
+          cover: result.image,
+          tracks: result.tracks,
+          images: result.images,
+          videos: result.videos,
+        },
+      });
     } catch (error) {
       console.log(error);
       return c.json(
