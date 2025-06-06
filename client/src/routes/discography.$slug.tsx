@@ -44,7 +44,7 @@ function RouteComponent() {
 
   if (!album) {
     return (
-      <main className="mx-auto flex min-h-screen w-full max-w-[68rem] items-center justify-center px-4 md:px-0">
+      <main className="mx-auto flex w-full max-w-[68rem] items-center justify-center px-4 md:px-0">
         <div className="text-center">
           <h1 className="mb-2 text-2xl font-bold text-gray-800">
             Album not found

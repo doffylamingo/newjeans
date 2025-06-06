@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { api } from "@/lib/api";
@@ -15,38 +16,38 @@ const getDiscographyQueryOptions = () => ({
 });
 
 export const Route = createFileRoute("/discography/")({
-  loader: async ({ context: { queryClient } }) => {
-    return queryClient.ensureQueryData(getDiscographyQueryOptions());
-  },
   component: DiscographyPage,
-  pendingComponent: () => (
-    <main className="mx-auto w-full max-w-[68rem] px-4 pb-4 md:px-0 md:pb-12">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, idx) => (
-          <div
-            key={idx}
-            className="flex animate-pulse flex-col"
-          >
-            <div className="aspect-square w-full bg-gray-300" />
-            <div className="mt-3 space-y-2">
-              <div className="h-5 bg-gray-300" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
-  ),
 });
 
 function DiscographyPage() {
-  const data = Route.useLoaderData();
+  const { data, isLoading } = useQuery(getDiscographyQueryOptions());
 
   const {
     page: albumPage,
     setPage: setAlbumPage,
     totalPages,
     paginatedItems: paginatedAlbums,
-  } = usePagination(data.result, 6);
+  } = usePagination(data?.result ?? [], 6);
+
+  if (isLoading) {
+    return (
+      <main className="mx-auto w-full max-w-[68rem] px-4 pb-4 md:px-0 md:pb-12">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:gap-6 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="flex animate-pulse flex-col"
+            >
+              <div className="aspect-square w-full bg-gray-300" />
+              <div className="mt-3 space-y-2">
+                <div className="h-5 bg-gray-300" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="mx-auto w-full max-w-[68rem] px-4 pb-4 md:px-0 md:pb-12">

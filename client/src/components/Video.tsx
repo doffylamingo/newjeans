@@ -23,6 +23,12 @@ export default function Video({ videos = [] }: { videos: Video[] }) {
 
   const handleSelect = useCallback((video: Video) => setSelected(video), []);
 
+  if (videos.length === 0) {
+    return (
+      <div className="text-center text-gray-500">No videos available.</div>
+    );
+  }
+
   return (
     <div>
       <div className="relative mb-6 shadow-2xl md:mb-8">
