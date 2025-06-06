@@ -7,7 +7,7 @@ import Gallery from "@/components/Gallery";
 import Pagination from "@/components/Pagination";
 
 const getImagesQueryOptions = () => ({
-  queryKey: ["discography"],
+  queryKey: ["images"],
   queryFn: async () => {
     const res = await api.images.$get();
     const data = await res.json();

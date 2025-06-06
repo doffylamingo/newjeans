@@ -2,8 +2,9 @@
   "name": "newjeans",
   "scripts": {
     "client": "cd client && bun run dev",
+    "build:client": "cd client && bun run build",
     "server": "wrangler dev",
-    "deploy": "wrangler deploy --minify",
+    "deploy": "bun run build:client && wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "dev": "concurrently \"bun run client\" \"bun run server\"",
     "db:generate": "drizzle-kit generate",

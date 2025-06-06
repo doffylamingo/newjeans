@@ -4,7 +4,7 @@ import { api } from "@/lib/api";
 import Video from "@/components/Video";
 
 const getVideosQueryOptions = () => ({
-  queryKey: ["discography"],
+  queryKey: ["videos"],
   queryFn: async () => {
     const res = await api.videos.$get();
     const data = await res.json();

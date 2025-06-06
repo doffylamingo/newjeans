@@ -10,166 +10,166 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as DiscographySlugImport } from "./routes/discography.$slug";
-import { Route as DiscographyIndexImport } from "./routes/discography.index";
-import { Route as GalleryImport } from "./routes/gallery";
-import { Route as IndexImport } from "./routes/index";
-import { Route as ProfileImport } from "./routes/profile";
-import { Route as VideoImport } from "./routes/video";
+import { Route as rootRoute } from './routes/__root'
+import { Route as VideoImport } from './routes/video'
+import { Route as ProfileImport } from './routes/profile'
+import { Route as GalleryImport } from './routes/gallery'
+import { Route as IndexImport } from './routes/index'
+import { Route as DiscographyIndexImport } from './routes/discography.index'
+import { Route as DiscographySlugImport } from './routes/discography.$slug'
 
 // Create/Update Routes
 
 const VideoRoute = VideoImport.update({
-  id: "/video",
-  path: "/video",
+  id: '/video',
+  path: '/video',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const ProfileRoute = ProfileImport.update({
-  id: "/profile",
-  path: "/profile",
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const GalleryRoute = GalleryImport.update({
-  id: "/gallery",
-  path: "/gallery",
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const DiscographyIndexRoute = DiscographyIndexImport.update({
-  id: "/discography/",
-  path: "/discography/",
+  id: '/discography/',
+  path: '/discography/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const DiscographySlugRoute = DiscographySlugImport.update({
-  id: "/discography/$slug",
-  path: "/discography/$slug",
+  id: '/discography/$slug',
+  path: '/discography/$slug',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/gallery": {
-      id: "/gallery";
-      path: "/gallery";
-      fullPath: "/gallery";
-      preLoaderRoute: typeof GalleryImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/profile": {
-      id: "/profile";
-      path: "/profile";
-      fullPath: "/profile";
-      preLoaderRoute: typeof ProfileImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/video": {
-      id: "/video";
-      path: "/video";
-      fullPath: "/video";
-      preLoaderRoute: typeof VideoImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/discography/$slug": {
-      id: "/discography/$slug";
-      path: "/discography/$slug";
-      fullPath: "/discography/$slug";
-      preLoaderRoute: typeof DiscographySlugImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/discography/": {
-      id: "/discography/";
-      path: "/discography";
-      fullPath: "/discography";
-      preLoaderRoute: typeof DiscographyIndexImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileImport
+      parentRoute: typeof rootRoute
+    }
+    '/video': {
+      id: '/video'
+      path: '/video'
+      fullPath: '/video'
+      preLoaderRoute: typeof VideoImport
+      parentRoute: typeof rootRoute
+    }
+    '/discography/$slug': {
+      id: '/discography/$slug'
+      path: '/discography/$slug'
+      fullPath: '/discography/$slug'
+      preLoaderRoute: typeof DiscographySlugImport
+      parentRoute: typeof rootRoute
+    }
+    '/discography/': {
+      id: '/discography/'
+      path: '/discography'
+      fullPath: '/discography'
+      preLoaderRoute: typeof DiscographyIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/gallery": typeof GalleryRoute;
-  "/profile": typeof ProfileRoute;
-  "/video": typeof VideoRoute;
-  "/discography/$slug": typeof DiscographySlugRoute;
-  "/discography": typeof DiscographyIndexRoute;
+  '/': typeof IndexRoute
+  '/gallery': typeof GalleryRoute
+  '/profile': typeof ProfileRoute
+  '/video': typeof VideoRoute
+  '/discography/$slug': typeof DiscographySlugRoute
+  '/discography': typeof DiscographyIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/gallery": typeof GalleryRoute;
-  "/profile": typeof ProfileRoute;
-  "/video": typeof VideoRoute;
-  "/discography/$slug": typeof DiscographySlugRoute;
-  "/discography": typeof DiscographyIndexRoute;
+  '/': typeof IndexRoute
+  '/gallery': typeof GalleryRoute
+  '/profile': typeof ProfileRoute
+  '/video': typeof VideoRoute
+  '/discography/$slug': typeof DiscographySlugRoute
+  '/discography': typeof DiscographyIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/gallery": typeof GalleryRoute;
-  "/profile": typeof ProfileRoute;
-  "/video": typeof VideoRoute;
-  "/discography/$slug": typeof DiscographySlugRoute;
-  "/discography/": typeof DiscographyIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/gallery': typeof GalleryRoute
+  '/profile': typeof ProfileRoute
+  '/video': typeof VideoRoute
+  '/discography/$slug': typeof DiscographySlugRoute
+  '/discography/': typeof DiscographyIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/gallery"
-    | "/profile"
-    | "/video"
-    | "/discography/$slug"
-    | "/discography";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | '/gallery'
+    | '/profile'
+    | '/video'
+    | '/discography/$slug'
+    | '/discography'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/gallery"
-    | "/profile"
-    | "/video"
-    | "/discography/$slug"
-    | "/discography";
+    | '/'
+    | '/gallery'
+    | '/profile'
+    | '/video'
+    | '/discography/$slug'
+    | '/discography'
   id:
-    | "__root__"
-    | "/"
-    | "/gallery"
-    | "/profile"
-    | "/video"
-    | "/discography/$slug"
-    | "/discography/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/gallery'
+    | '/profile'
+    | '/video'
+    | '/discography/$slug'
+    | '/discography/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  GalleryRoute: typeof GalleryRoute;
-  ProfileRoute: typeof ProfileRoute;
-  VideoRoute: typeof VideoRoute;
-  DiscographySlugRoute: typeof DiscographySlugRoute;
-  DiscographyIndexRoute: typeof DiscographyIndexRoute;
+  IndexRoute: typeof IndexRoute
+  GalleryRoute: typeof GalleryRoute
+  ProfileRoute: typeof ProfileRoute
+  VideoRoute: typeof VideoRoute
+  DiscographySlugRoute: typeof DiscographySlugRoute
+  DiscographyIndexRoute: typeof DiscographyIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -179,11 +179,11 @@ const rootRouteChildren: RootRouteChildren = {
   VideoRoute: VideoRoute,
   DiscographySlugRoute: DiscographySlugRoute,
   DiscographyIndexRoute: DiscographyIndexRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
