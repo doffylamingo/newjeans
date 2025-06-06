@@ -59,9 +59,9 @@ function RouteComponent() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-[68rem] px-4 py-6 md:px-0 md:py-8">
-      <div className="mb-8 flex w-full flex-col items-center justify-center md:mb-50">
+      <div className="mb-15 flex w-full flex-col items-center justify-center md:mb-50">
         <div className="text-center">
-          <div className="text-3xl font-bold uppercase md:text-4xl lg:text-7xl">
+          <div className="font-inter text-3xl font-bold tracking-wide uppercase md:text-4xl lg:text-7xl">
             {album.name}
           </div>
           <p className="mb-4 text-lg text-gray-600 md:mb-13 md:text-xl">
@@ -78,11 +78,11 @@ function RouteComponent() {
       </div>
 
       <DiscographySection title="Track">
-        <div className="flex flex-col items-center gap-y-3 py-3 md:py-4">
+        <div className="flex flex-col items-center">
           {album.tracks?.map((track, index) => (
             <div
               key={index}
-              className="flex w-[300px] gap-x-8 py-2 md:w-[400px]"
+              className="flex w-[300px] gap-x-8 pb-2 md:w-[400px]"
             >
               <div className="w-6 text-right text-xl font-bold">
                 {String(index + 1).padStart(2, "0")}
@@ -132,8 +132,8 @@ function DiscographySection({
   title: string;
 }) {
   return (
-    <div className="mb-8 text-center md:mb-50">
-      <div className="mb-13 text-3xl font-bold uppercase md:text-4xl lg:text-7xl">
+    <div className="mb-15 text-center md:mb-50">
+      <div className="font-inter mb-13 text-3xl font-bold tracking-wide uppercase md:text-4xl lg:text-7xl">
         {title}
       </div>
       {children}
