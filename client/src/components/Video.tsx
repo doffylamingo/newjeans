@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { CirclePlay } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { CirclePlay, X } from "lucide-react";
 import ReactPlayer from "react-player";
 
 import usePagination from "@/hooks/usePagination";
@@ -14,6 +14,9 @@ interface Video {
 
 export default function Video({ videos = [] }: { videos: Video[] }) {
   const [selected, setSelected] = useState<Video | null>(videos[0] ?? null);
+  const [showModal, setShowModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const {
     page: videoPage,
     setPage: setVideoPage,
@@ -21,7 +24,42 @@ export default function Video({ videos = [] }: { videos: Video[] }) {
     paginatedItems: paginatedVideos,
   } = usePagination(videos, 3);
 
-  const handleSelect = useCallback((video: Video) => setSelected(video), []);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleSelect = useCallback(
+    (video: Video) => {
+      setSelected(video);
+      if (isMobile) {
+        setShowModal(true);
+      }
+    },
+    [isMobile],
+  );
+
+  const closeModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+
+  useEffect(() => {
+    if (showModal && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showModal, isMobile]);
 
   if (videos.length === 0) {
     return (
@@ -31,7 +69,7 @@ export default function Video({ videos = [] }: { videos: Video[] }) {
 
   return (
     <div>
-      <div className="relative mb-6 shadow-2xl md:mb-8">
+      <div className="relative mb-6 hidden shadow-2xl md:mb-8 md:block">
         <div className="aspect-video">
           <ReactPlayer
             controls
@@ -41,11 +79,41 @@ export default function Video({ videos = [] }: { videos: Video[] }) {
           />
         </div>
       </div>
+
+      {isMobile && showModal && selected && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={closeModal}
+        >
+          <button
+            className="absolute top-4 right-4 z-10 bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
+            onClick={closeModal}
+          >
+            <X className="size-5" />
+          </button>
+          <div
+            className="relative w-full max-w-4xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="aspect-video">
+              <ReactPlayer
+                controls
+                height="100%"
+                playing={true}
+                url={`https://www.youtube.com/watch?v=${selected.videoId}`}
+                width="100%"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       <VideoList
         selected={selected}
         setSelected={handleSelect}
         videos={paginatedVideos}
       />
+
       <Pagination
         currentPage={videoPage}
         totalPages={totalPages}
@@ -65,7 +133,7 @@ function VideoList({
   setSelected: (video: Video) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
       {videos.map((video) => (
         <VideoThumbnail
           key={video.videoId}
@@ -110,7 +178,7 @@ function VideoThumbnail({
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center gap-1 pt-3 pb-4 group-hover:cursor-pointer sm:flex-row sm:justify-between sm:gap-0">
+      <div className="flex flex-row items-center justify-between gap-1 pt-3 pb-4 group-hover:cursor-pointer sm:gap-0">
         <div className="text-base font-bold sm:text-lg">{name}</div>
         <div className="flex-shrink-0 text-sm font-medium text-neutral-700 sm:text-right sm:text-base">
           {date}
