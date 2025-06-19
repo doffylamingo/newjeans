@@ -29,14 +29,12 @@ export async function GET(
   }
 
   return Response.json({
-    result: {
-      slug: results.slug,
-      name: results.name,
-      releaseDate: results.releaseDate,
-      cover: results.images,
-      tracks: results.tracks,
-      images: results.images,
-      videos: results.videos,
-    },
+    slug: results.slug,
+    name: results.name,
+    releaseDate: results.releaseDate,
+    cover: results.cover,
+    tracks: results.tracks,
+    images: results.images,
+    videos: results.videos,
   });
 }
