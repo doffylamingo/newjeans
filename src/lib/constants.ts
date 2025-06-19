@@ -66,3 +66,11 @@ export const SNS_ITEMS = [
     name: "YouTube",
   },
 ];
+
+export const SPRITES = [
+  "/ppf/minji.png",
+  "/ppf/hanni.png",
+  "/ppf/danielle.png",
+  "/ppf/haerin.png",
+  "/ppf/hyein.png",
+];

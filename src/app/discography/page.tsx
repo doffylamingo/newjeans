@@ -1,14 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-export interface Album {
-  id: number;
-  slug: string;
-  name: string;
-  releaseDate: string;
-  cover: string;
-}
+import { Album } from "@generated/prisma";
 
 async function fetchAlbums() {
   const res = await fetch("http://localhost:3000/api/albums");
