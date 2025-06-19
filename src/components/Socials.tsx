@@ -1,38 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const SNS_ITEMS = [
-  {
-    href: "https://www.instagram.com/newjeans_official/",
-    logo: "/icons/instagram.png",
-    name: "Instagram",
-  },
-  {
-    href: "https://twitter.com/NewJeans_ADOR",
-    logo: "/icons/twitter.png",
-    name: "Twitter",
-  },
-  {
-    href: "https://twitter.com/NewJeans_twt",
-    logo: "/icons/twitter.png",
-    name: "Twitter",
-  },
-  {
-    href: "https://www.facebook.com/official.newjeans/",
-    logo: "/icons/facebook.png",
-    name: "Facebook",
-  },
-  {
-    href: "https://www.tiktok.com/@newjeans_official",
-    logo: "/icons/tiktok.png",
-    name: "TikTok",
-  },
-  {
-    href: "https://www.youtube.com/channel/UCMki_UkHb4qSc0qyEcOHHJw",
-    logo: "/icons/youtube.png",
-    name: "YouTube",
-  },
-];
+import { SNS_ITEMS } from "@/lib/constants";
 
 export default function Socials() {
   return (

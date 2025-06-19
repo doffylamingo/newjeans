@@ -5,17 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { NAV_ITEMS } from "@/lib/constants";
 import BurgerMenu from "@/components/BurgerMenu";
 import NavItems from "@/components/NavItems";
 import Socials from "@/components/Socials";
-
-const NAV_ITEMS = [
-  { href: "/", name: "Home" },
-  { href: "/profile", name: "Profile" },
-  { href: "/discography", name: "Discography" },
-  { href: "/gallery", name: "Gallery" },
-  { href: "/video", name: "Video" },
-];
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -47,6 +40,7 @@ export default function NavBar() {
               alt="NewJeans logo"
               className="h-auto w-full"
               height={40}
+              quality={100}
               sizes="
       (max-width: 640px) 7rem, 
       (max-width: 768px) 8rem, 
