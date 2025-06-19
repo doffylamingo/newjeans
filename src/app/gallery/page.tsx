@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db";
 import { handleImageRefresh } from "@/lib/utils";
 import Gallery from "@/components/Gallery";
 
+export const dynamic = "force-dynamic";
+
 async function fetchImages() {
   const results = await prisma.image.findMany({
     orderBy: {
