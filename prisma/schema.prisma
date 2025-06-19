@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Album {
+  id          Int    @id @default(autoincrement())
+  slug        String @unique
+  name        String
+  releaseDate String
+  cover       String
+
+  tracks Track[]
+  videos Video[]
+  images Image[]
+}
+
+model Track {
+  id       Int    @id @default(autoincrement())
+  name     String
+  duration String
+
+  Album   Album? @relation(fields: [albumId], references: [id])
+  albumId Int?
+}
+
+model Video {
+  id      Int    @id @default(autoincrement())
+  name    String
+  videoId String
+  date    String
+
+  Album   Album? @relation(fields: [albumId], references: [id])
+  albumId Int?
+}
+
+model Image {
+  id            Int      @id @default(autoincrement())
+  src           String
+  width         Int
+  height        Int
+  lastRefreshed DateTime @default(now())
+
+  Album   Album? @relation(fields: [albumId], references: [id])
+  albumId Int?
+}
