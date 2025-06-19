@@ -1,16 +1,20 @@
 import React from "react";
-import { Video as VideoType } from "@generated/prisma";
 
+import { prisma } from "@/lib/db";
 import Video from "@/components/Video";
 
 async function fetchVideos() {
-  const res = await fetch("http://localhost:3000/api/videos");
+  const results = await prisma.video.findMany({
+    orderBy: {
+      id: "desc",
+    },
+  });
 
-  return res.json();
+  return results;
 }
 
 export default async function page() {
-  const videos: VideoType[] = await fetchVideos();
+  const videos = await fetchVideos();
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-[68rem] px-4 py-6 md:px-0 md:py-8">

@@ -1,33 +1,52 @@
 import React from "react";
 import Image from "next/image";
-import {
-  Image as ImageType,
-  Track,
-  Video as VideoType,
-} from "@generated/prisma";
 
+import { prisma } from "@/lib/db";
+import { handleImageRefresh } from "@/lib/utils";
 import Gallery from "@/components/Gallery";
 import Video from "@/components/Video";
 
 async function fetchAlbum(slug: string) {
-  const res = await fetch(`http://localhost:3000/api/albums/${slug}`);
+  const results = await prisma.album.findFirst({
+    where: {
+      slug,
+    },
+    include: {
+      tracks: true,
+      images: true,
+      videos: true,
+    },
+  });
 
-  return res.json();
+  if (!results)
+    return {
+      error: "Album not found",
+    };
+
+  if (results.images.length > 0) {
+    await handleImageRefresh(results.images);
+  }
+
+  return {
+    slug: results.slug,
+    name: results.name,
+    releaseDate: results.releaseDate,
+    cover: results.cover,
+    tracks: results.tracks,
+    images: results.images,
+    videos: results.videos,
+  };
 }
 
-export interface Album {
-  slug: string;
-  name: string;
-  releaseDate: string;
-  cover: string;
-  tracks: Track[];
-  images: ImageType[];
-  videos: VideoType[];
-}
+export default async function page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const album = await fetchAlbum(slug);
 
-export default async function page({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const album: Album = await fetchAlbum(slug);
+  if (album.error) return <div>{album.error}</div>;
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-[68rem] px-4 py-6 md:px-0 md:py-8">
@@ -42,10 +61,10 @@ export default async function page({ params }: { params: { slug: string } }) {
         </div>
         <div className="md:w-64 lg:w-110">
           <Image
-            alt={album.name}
+            alt={album.name ?? ""}
             className="aspect-square w-full shadow-xl/25"
             height={500}
-            src={album.cover}
+            src={album.cover ?? ""}
             width={500}
           />
         </div>
@@ -73,7 +92,7 @@ export default async function page({ params }: { params: { slug: string } }) {
       </DiscographySection>
 
       <DiscographySection title="Video">
-        <Video videos={album.videos} />
+        <Video videos={album.videos ?? []} />
       </DiscographySection>
 
       <DiscographySection title="Gallery">

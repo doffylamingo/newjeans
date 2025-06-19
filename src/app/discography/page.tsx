@@ -1,16 +1,21 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Album } from "@generated/prisma";
+
+import { prisma } from "@/lib/db";
 
 async function fetchAlbums() {
-  const res = await fetch("http://localhost:3000/api/albums");
+  const results = await prisma.album.findMany({
+    orderBy: {
+      id: "desc",
+    },
+  });
 
-  return res.json();
+  return results;
 }
 
 export default async function page() {
-  const albums: Album[] = await fetchAlbums();
+  const albums = await fetchAlbums();
 
   return (
     <main className="mx-auto w-full max-w-[68rem] px-4 pb-4 md:px-0 md:pb-12">
